@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
       - name: Install dependencies
         run: |
           python3 -m pip install setuptools wheel twine
@@ -28,11 +28,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
       - name: Install dependencies
         run: |
           python3 -m pip install nox
@@ -43,11 +43,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
       - name: Install dependencies
         run: |
           python3 -m pip install nox
@@ -66,24 +66,25 @@ jobs:
           "3.8",
           "3.9",
           "3.10",
+          "3.11",
         ]
         es-version: [7.0.0, 7.10.0]
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Setup Elasticsearch
         run: |
           mkdir /tmp/elasticsearch
           wget -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${{ matrix.es-version }}-linux-x86_64.tar.gz | tar xz --directory=/tmp/elasticsearch --strip-components=1
           /tmp/elasticsearch/bin/elasticsearch -d
       - name: Setup Python - ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Set up Python for Nox
-        if: matrix.python-version != '3.10'
-        uses: actions/setup-python@v3
+        if: matrix.python-version != '3.11'
+        uses: actions/setup-python@v4
         with:
           python-version: 3
       - name: Install dependencies
